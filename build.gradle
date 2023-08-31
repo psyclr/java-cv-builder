@@ -26,6 +26,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     testImplementation 'com.h2database:h2:2.2.220'
+    implementation 'org.postgresql:postgresql:42.6.0'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -35,35 +36,35 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
-
-// ADDED want consistent name for jar
-bootJar {
-    archiveFileName = "springBoot.jar"
-}
-
-// ADDED build OCI image using Docker
-task docker(type: Exec) {
-    group "OCI"
-    dependsOn bootJar
-    dependsOn copyDockerfile
-    workingDir "${buildDir}/libs"
-    commandLine "docker", "build", "-f", "Dockerfile", "-t", "${ownerProject}:${dockerVersion}", "-t", "${ownerProject}:latest", "."
-}
-
-// ADDED build OCI image using Buildah
-task buildah(type: Exec) {
-    group "OCI"
-    dependsOn bootJar
-    dependsOn copyDockerfile
-    workingDir "${buildDir}/libs"
-    commandLine "buildah", "bud", "-f", "Dockerfile", "-t", "${ownerProject}:latest", "-t", "docker.io/${ownerProject}:latest", "-t", "docker.io/${ownerProject}:${dockerVersion}", "-t", "ghcr.io/${ownerProject}:latest", "-t", "ghcr.io/${ownerProject}:${dockerVersion}", "."
-}
-
-
-// ADDED ability to specify docker owner and version on command line
-ext.dockerOwner = project.hasProperty('dockerOwner') ? project.getProperty('dockerOwner') : 'fabianlee'
-ext.dockerVersion = project.hasProperty('dockerVersion') ? project.getProperty('dockerVersion') : '1.0.0'
-task copyDockerfile(type: Copy) {
-    from './Dockerfile'
-    into 'build/libs'
-}
+//
+//// ADDED want consistent name for jar
+//bootJar {
+//    archiveFileName = "springBoot.jar"
+//}
+//
+//// ADDED build OCI image using Docker
+//task docker(type: Exec) {
+//    group "OCI"
+//    dependsOn bootJar
+//    dependsOn copyDockerfile
+//    workingDir "${buildDir}/libs"
+//    commandLine "docker", "build", "-f", "Dockerfile", "-t", "${ownerProject}:${dockerVersion}", "-t", "${ownerProject}:latest", "."
+//}
+//
+//// ADDED build OCI image using Buildah
+//task buildah(type: Exec) {
+//    group "OCI"
+//    dependsOn bootJar
+//    dependsOn copyDockerfile
+//    workingDir "${buildDir}/libs"
+//    commandLine "buildah", "bud", "-f", "Dockerfile", "-t", "${ownerProject}:latest", "-t", "docker.io/${ownerProject}:latest", "-t", "docker.io/${ownerProject}:${dockerVersion}", "-t", "ghcr.io/${ownerProject}:latest", "-t", "ghcr.io/${ownerProject}:${dockerVersion}", "."
+//}
+//
+//
+//// ADDED ability to specify docker owner and version on command line
+//ext.dockerOwner = project.hasProperty('dockerOwner') ? project.getProperty('dockerOwner') : 'fabianlee'
+//ext.dockerVersion = project.hasProperty('dockerVersion') ? project.getProperty('dockerVersion') : '1.0.0'
+//task copyDockerfile(type: Copy) {
+//    from './Dockerfile'
+//    into 'build/libs'
+//}

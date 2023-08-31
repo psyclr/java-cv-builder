@@ -1,7 +1,8 @@
 package com.alex.cv.controller;
 
 import com.alex.cv.dto.SkillDto;
-import com.alex.cv.dto.UserDto;
+import com.alex.cv.dto.UserRequest;
+import com.alex.cv.dto.UserResponse;
 import com.alex.cv.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +19,12 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/{id}/skill/")
-    public UserDto addSkillToUser(@PathVariable Long id, @RequestBody @Validated SkillDto skill) {
+    public UserResponse addSkillToUser(@PathVariable Long id, @RequestBody @Validated SkillDto skill) {
         return userService.addSkill(id, skill);
+    }
+
+    @PostMapping
+    public UserResponse createUser(@RequestBody @Validated UserRequest user) {
+        return userService.createUser(user);
     }
 }
