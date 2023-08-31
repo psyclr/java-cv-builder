@@ -1,9 +1,11 @@
 package com.alex.cv.service.impl;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import com.alex.cv.dto.SkillDto;
-import com.alex.cv.dto.UserDto;
+import com.alex.cv.dto.UserRequest;
+import com.alex.cv.dto.UserResponse;
 import com.alex.cv.entity.SkillEntity;
 import com.alex.cv.entity.UserEntity;
 import com.alex.cv.exception.ResourceNotFoundException;
@@ -19,10 +21,15 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    private static List<SkillDto> mapSkillsToDto(List<SkillEntity> skills) {
+        return skills.stream()
+                .map(s -> new SkillDto(s.getName(), s.getDescription())).collect(Collectors.toList());
+    }
+
     @Override
     @Transactional
-    public UserDto addSkill(Long id, SkillDto dto) {
-        var user = getUserById(id);
+    public UserResponse addSkill(Long id, SkillDto dto) {
+        var user = getUserByIdOrThrow(id);
 
         var skillEntity = new SkillEntity();
         skillEntity.setName(dto.getName());
@@ -30,13 +37,24 @@ public class UserServiceImpl implements UserService {
         skillEntity.setUser(user);
         user.getSkills().add(skillEntity);
 
-        var skillDtoList = user.getSkills().stream()
-                .map(s -> new SkillDto(s.getName(), s.getDescription())).collect(Collectors.toList());
+        List<SkillDto> skillDtoList = mapSkillsToDto(user.getSkills());
 
-        return new UserDto(user.getId(), user.getFirstName(), user.getLastName(), skillDtoList);
+        return new UserResponse(user.getId(), user.getFirstName(), user.getLastName(), skillDtoList);
     }
 
-    private UserEntity getUserById(Long id) {
+    @Override
+    @Transactional
+    public UserResponse createUser(UserRequest request) {
+
+        var user = new UserEntity();
+        user.setSkills(request.getSkills().stream().map(skillDto -> new SkillEntity()).toList());
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+
+        return new UserResponse(user.getId(), user.getFirstName(), user.getLastName(), mapSkillsToDto(user.getSkills()));
+    }
+
+    private UserEntity getUserByIdOrThrow(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(""));
     }
 }
