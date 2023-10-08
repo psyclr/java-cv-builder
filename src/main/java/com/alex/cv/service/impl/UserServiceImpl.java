@@ -8,6 +8,7 @@ import com.alex.cv.dto.UserRequest;
 import com.alex.cv.dto.UserResponse;
 import com.alex.cv.entity.SkillEntity;
 import com.alex.cv.entity.UserEntity;
+import com.alex.cv.entity.UserInfo;
 import com.alex.cv.exception.ResourceNotFoundException;
 import com.alex.cv.repository.UserRepository;
 import com.alex.cv.service.UserService;
@@ -37,9 +38,8 @@ public class UserServiceImpl implements UserService {
         skillEntity.setUser(user);
         user.getSkills().add(skillEntity);
 
-        List<SkillDto> skillDtoList = mapSkillsToDto(user.getSkills());
-
-        return new UserResponse(user.getId(), user.getFirstName(), user.getLastName(), skillDtoList);
+        var userInfo = user.getUserInfo();
+        return createUserResponse(user, userInfo);
     }
 
     @Override
@@ -48,10 +48,20 @@ public class UserServiceImpl implements UserService {
 
         var user = new UserEntity();
         user.setSkills(request.getSkills().stream().map(skillDto -> new SkillEntity()).toList());
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
 
-        return new UserResponse(user.getId(), user.getFirstName(), user.getLastName(), mapSkillsToDto(user.getSkills()));
+        var userInfo = new UserInfo();
+        userInfo.setFirstName(request.getFirstName());
+        userInfo.setLastName(request.getLastName());
+        user.setUserInfo(userInfo);
+
+        return createUserResponse(user, user.getUserInfo());
+    }
+
+    private static UserResponse createUserResponse(UserEntity user, UserInfo user1) {
+        return new UserResponse(user.getId(),
+                user1.getFirstName(),
+                user1.getLastName(),
+                mapSkillsToDto(user.getSkills()));
     }
 
     private UserEntity getUserByIdOrThrow(Long id) {

@@ -13,8 +13,8 @@ services:
     networks:
       - default
     depends_on:
-      - postgresql
-  postgresql:
+      - postgres
+  postgres:
     image: postgres:15.2
     container_name: ${POSTGRES_CONTAINER_NAME}
     restart: on-failure
@@ -27,7 +27,7 @@ services:
     networks:
       - default
     volumes:
-      - postgresql-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgres/data
       - ./db/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
 
 networks:
@@ -36,5 +36,5 @@ networks:
     driver: bridge
 
 volumes:
-  postgresql-data:
+  postgres-data:
     name: pg-data

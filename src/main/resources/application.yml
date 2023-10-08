@@ -10,3 +10,8 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+  flyway:
+    validate-on-migrate: true
+server:
+  servlet:
+    context-path: /api/v1

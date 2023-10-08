@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,9 +14,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserEntity extends AbstractEntity {
-    private String firstName;
-    private String lastName;
-    private int age;
+    private String email;
+    private String password;
+    private String role;
+
+    @OneToOne
+    private UserInfo userInfo;
 
     @OneToMany
     private List<SkillEntity> skills;
