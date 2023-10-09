@@ -1,4 +1,4 @@
-package com.alex.cv;
+package com.polytechnology.cv;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

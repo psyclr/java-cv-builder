@@ -1,4 +1,4 @@
-package com.alex.cv.entity;
+package com.polytechnology.cv.entity;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class UserEntity extends AbstractEntity {
     private String role;
 
     @OneToOne
-    private UserInfo userInfo;
+    private UserInfoEntity userInfoEntity;
 
     @OneToMany
     private List<SkillEntity> skills;

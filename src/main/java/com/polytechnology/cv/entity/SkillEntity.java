@@ -1,4 +1,4 @@
-package com.alex.cv.entity;
+package com.polytechnology.cv.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;

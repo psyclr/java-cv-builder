@@ -12,6 +12,8 @@ spring:
             non_contextual_creation: true
   flyway:
     validate-on-migrate: true
+    clean-on-validation-error: true
+    clean-disabled: false
 server:
   servlet:
     context-path: /api/v1

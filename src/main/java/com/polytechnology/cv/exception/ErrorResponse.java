@@ -1,4 +1,4 @@
-package com.alex.cv.exception;
+package com.polytechnology.cv.exception;
 
 public record ErrorResponse(String description) {
 }

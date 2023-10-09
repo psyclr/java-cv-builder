@@ -1,4 +1,4 @@
-package com.alex.cv.dto;
+package com.polytechnology.cv.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

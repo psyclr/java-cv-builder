@@ -1,7 +1,7 @@
 -- Create the user info table
 CREATE TABLE IF NOT EXISTS "users-info"
 (
-    id                     UUID PRIMARY KEY,
+    id                     bigint PRIMARY KEY,
     firstName              varchar(255) NOT NULL,
     lastName               varchar(255) NOT NULL,
     age                    numeric NOT NULL
@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS "users-info"
 -- Create the user table
 CREATE TABLE IF NOT EXISTS "users"
 (
-    id                     UUID PRIMARY KEY,
-    user_info_id           uuid,
+    id                     bigint PRIMARY KEY,
+    user_info_id           bigint,
     email                  VARCHAR(255) NOT NULL UNIQUE,
     password               VARCHAR(255) NOT NULL,
     "role"                 VARCHAR(255) NOT NULL,

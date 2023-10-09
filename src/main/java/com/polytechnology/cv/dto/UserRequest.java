@@ -1,4 +1,4 @@
-package com.alex.cv.dto;
+package com.polytechnology.cv.dto;
 
 import java.util.List;
 
@@ -8,7 +8,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UserRequest {
-    Long id;
     String firstName;
     String lastName;
     List<SkillDto> skills;

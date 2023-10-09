@@ -1,4 +1,4 @@
-package com.alex.cv.entity;
+package com.polytechnology.cv.entity;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;

@@ -1,4 +1,4 @@
-package com.alex.cv;
+package com.polytechnology.cv;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

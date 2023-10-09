@@ -1,4 +1,4 @@
-package com.alex.cv.entity;
+package com.polytechnology.cv.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @Table(name = "users-info")
 @Getter
 @Setter
-public class UserInfo extends AbstractEntity {
-    private String firstName;
-    private String lastName;
-    private int age;
+public class UserInfoEntity extends AbstractEntity {
+
+    private String firstname;
+    private String lastname;
 }

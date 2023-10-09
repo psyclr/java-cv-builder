@@ -1,9 +1,9 @@
-package com.alex.cv.controller;
+package com.polytechnology.cv.controller;
 
-import com.alex.cv.dto.SkillDto;
-import com.alex.cv.dto.UserRequest;
-import com.alex.cv.dto.UserResponse;
-import com.alex.cv.service.UserService;
+import com.polytechnology.cv.dto.SkillDto;
+import com.polytechnology.cv.dto.UserRequest;
+import com.polytechnology.cv.dto.UserResponse;
+import com.polytechnology.cv.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
