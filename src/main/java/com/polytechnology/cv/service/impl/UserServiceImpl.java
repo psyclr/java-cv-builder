@@ -1,6 +1,7 @@
 package com.polytechnology.cv.service.impl;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.polytechnology.cv.dto.SkillDto;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
                 mapSkillsToDto(user.getSkills()));
     }
 
-    private static List<SkillDto> mapSkillsToDto(List<SkillEntity> skills) {
+    private static List<SkillDto> mapSkillsToDto(Set<SkillEntity> skills) {
         return skills.stream()
                 .map(s -> new SkillDto(s.getName(), s.getDescription())).collect(Collectors.toList());
     }
@@ -43,9 +44,8 @@ public class UserServiceImpl implements UserService {
         var user = getUserByIdOrThrow(id);
 
         var skillEntity = new SkillEntity();
-        skillEntity.setName(dto.getName());
-        skillEntity.setDescription(dto.getDescription());
-        skillEntity.setUser(user);
+        skillEntity.setName(dto.name());
+        skillEntity.setDescription(dto.description());
         user.getSkills().add(skillEntity);
 
         var userInfo = user.getUserInfoEntity();
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     public UserResponse createUser(UserRequest request) {
 
         var user = new UserEntity();
-        user.setSkills(request.getSkills().stream().map(skillDto -> new SkillEntity()).toList());
+//        user.setSkills(request.getSkills().stream().map(skillDto -> new SkillEntity()).collect(Collectors.toSet()));
 
         var userInfo = userInfoService.saveUserInfo(new UserInfoDto(request.getFirstName(), request.getLastName()));
         user.setUserInfoEntity(userInfo);
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserEntity getUserByIdOrThrow(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(""));
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
 }

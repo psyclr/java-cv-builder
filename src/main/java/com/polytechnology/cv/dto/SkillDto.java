@@ -1,13 +1,8 @@
 package com.polytechnology.cv.dto;
 
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
-@Data
-@AllArgsConstructor
-public class SkillDto {
-    @NotEmpty
-    private String name;
-    private String description;
+public record SkillDto(
+        @NotEmpty String name,
+        String description) {
 }

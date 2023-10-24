@@ -1,10 +1,10 @@
 -- Create the user info table
 CREATE TABLE IF NOT EXISTS "users-info"
 (
-    id                     bigint PRIMARY KEY,
-    firstName              varchar(255) NOT NULL,
-    lastName               varchar(255) NOT NULL,
-    age                    numeric NOT NULL
+    id        bigint PRIMARY KEY,
+    firstName varchar(255) NOT NULL,
+    lastName  varchar(255) NOT NULL,
+    age       numeric      NOT NULL
 );
 
 

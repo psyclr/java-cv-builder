@@ -1,6 +1,6 @@
 package com.polytechnology.cv.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -22,5 +22,5 @@ public class UserEntity extends AbstractEntity {
     private UserInfoEntity userInfoEntity;
 
     @OneToMany
-    private List<SkillEntity> skills;
+    private Set<SkillEntity> skills;
 }

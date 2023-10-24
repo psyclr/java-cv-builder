@@ -17,8 +17,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Transactional
     public UserInfoEntity saveUserInfo(UserInfoDto userInfoDto) {
         var userInfo = new UserInfoEntity();
-        userInfo.setFirstname(userInfoDto.getFirstName());
-        userInfo.setLastname(userInfoDto.getLastName());
+        userInfo.setFirstname(userInfoDto.firstName());
+        userInfo.setLastname(userInfoDto.lastName());
         return userInfoRepository.save(userInfo);
     }
 }
